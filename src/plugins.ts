@@ -1,4 +1,9 @@
+import { genericServerPlugin } from './plugins/genericServer'
 import { infoServerPlugin } from './plugins/infoServer'
 import { loginServerPlugin } from './plugins/loginServer'
 
-export const plugins = [infoServerPlugin, loginServerPlugin]
+export const plugins = [
+  genericServerPlugin,
+  infoServerPlugin,
+  loginServerPlugin
+]

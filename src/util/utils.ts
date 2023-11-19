@@ -48,3 +48,34 @@ export const cleanFetch = async <T>(
 
 export const logObject = (arg: any): void =>
   console.log(JSON.stringify(arg, null, 2))
+
+/**
+ * Checks if obj1 contains all the keys and matching values of
+ * obj2
+ *
+ * @param obj1 Super-set object
+ * @param obj2 Sub-set object
+ */
+export const objectsDeepMatch = (
+  obj1: Record<string, any>,
+  obj2: Record<string, any>
+): void => {
+  for (const key in obj2) {
+    if (!(key in obj1)) {
+      throw new Error(`objectsDeepMatch missing key ${key}`)
+    }
+
+    const value1 = obj1[key]
+    const value2 = obj2[key]
+
+    if (typeof value1 === 'object' && typeof value2 === 'object') {
+      objectsDeepMatch(value1, value2)
+    } else if (value1 !== value2) {
+      throw new Error(
+        `objectsDeepMatch mismatch ${key} ${String(value1)} !== ${String(
+          value2
+        )}`
+      )
+    }
+  }
+}
