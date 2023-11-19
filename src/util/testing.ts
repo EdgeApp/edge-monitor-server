@@ -17,7 +17,7 @@ export const describe = async (
   datelog(`*** ${description} START ***`)
   results = []
   await func()
-  datelog(`*** ${description} END *****`)
+  datelog(`*** ${description} END *****\n`)
   const failures = results.filter(r => !r.pass)
   if (failures.length > 0) {
     const messages = failures.map(

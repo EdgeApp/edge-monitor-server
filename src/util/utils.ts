@@ -2,7 +2,6 @@ import { Cleaner } from 'cleaners'
 import { ServerScope } from 'nano'
 import fetch, { RequestInit } from 'node-fetch'
 
-import { MonitorPlugin } from '../../types'
 import { ServerConfig } from '../config'
 
 export type PluginProcessor = (
@@ -45,26 +44,6 @@ export const cleanFetch = async <T>(
     if (error == null) throw e
     throw new Error(`Error while fetching: ${error}`)
   }
-}
-
-export const startPluginEngineLoop = async (
-  serverConfig: ServerConfig,
-  connection: ServerScope,
-  plugin: MonitorPlugin,
-  delay: number = ONE_HOUR_IN_MS
-): Promise<void> => {
-  const { pluginId, pluginProcessor } = plugin
-  const recLoop = async (): Promise<void> => {
-    try {
-      await pluginProcessor(serverConfig, connection)
-    } catch (e) {
-      datelog(`Error in ${pluginId}: ${String(e)}`)
-    } finally {
-      await snooze(delay)
-      recLoop().catch(datelog)
-    }
-  }
-  await recLoop()
 }
 
 export const logObject = (arg: any): void =>
