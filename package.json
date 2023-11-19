@@ -43,7 +43,7 @@
     "@types/node-fetch": "^2.5.3",
     "@typescript-eslint/eslint-plugin": "^4.8.2",
     "@typescript-eslint/parser": "^4.8.2",
-    "chai": "^4.2.0",
+    "chai": "^4.3.10",
     "cleaner-config": "^0.1.10",
     "edge-server-tools": "^0.2.18",
     "eslint": "^7.14.0",
