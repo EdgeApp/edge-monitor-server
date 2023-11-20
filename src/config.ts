@@ -1,5 +1,5 @@
 import { makeConfig } from 'cleaner-config'
-import { asNumber, asObject, asOptional, asString } from 'cleaners'
+import { asBoolean, asNumber, asObject, asOptional, asString } from 'cleaners'
 import { cpus } from 'os'
 
 /**
@@ -7,6 +7,9 @@ import { cpus } from 'os'
  * such as where to listen and how to talk to the database.
  */
 const asServerConfig = asObject({
+  // Logging options
+  logColor: asOptional(asBoolean, true),
+
   // Performance options:
   instanceCount: asOptional(asNumber, cpus().length),
 
