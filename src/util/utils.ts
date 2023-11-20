@@ -1,3 +1,6 @@
+import { Cleaner } from 'cleaners'
+import fetch, { RequestInit } from 'node-fetch'
+
 export const ONE_HOUR_IN_MS = 1000 * 60 * 60 // Delay an hour between checks
 export const STARS = '***********************************'
 export const SNOOZING = `SNOOZING ${STARS}`
@@ -17,3 +20,54 @@ export const dateString = (): string => {
 
 export const logObject = (arg: any): void =>
   console.log(JSON.stringify(arg, null, 2))
+
+export const cleanFetch = async <T>(
+  uri: string,
+  options: RequestInit,
+  cleaner: Cleaner<T>,
+  error?: string
+): Promise<T> => {
+  try {
+    const results = await fetch(uri, options)
+    if (!results.ok) {
+      const text = await results.text()
+      throw new Error(text)
+    }
+    const jsonRes = await results.json()
+    return cleaner(jsonRes)
+  } catch (e) {
+    if (error == null) throw e
+    throw new Error(`Error while fetching: ${error}`)
+  }
+}
+
+/**
+ * Checks if obj1 contains all the keys and matching values of
+ * obj2
+ *
+ * @param obj1 Super-set object
+ * @param obj2 Sub-set object
+ */
+export const objectsDeepMatch = (
+  obj1: Record<string, any>,
+  obj2: Record<string, any>
+): void => {
+  for (const key in obj2) {
+    if (!(key in obj1)) {
+      throw new Error(`objectsDeepMatch missing key ${key}`)
+    }
+
+    const value1 = obj1[key]
+    const value2 = obj2[key]
+
+    if (typeof value1 === 'object' && typeof value2 === 'object') {
+      objectsDeepMatch(value1, value2)
+    } else if (value1 !== value2) {
+      throw new Error(
+        `objectsDeepMatch mismatch ${key} ${String(value1)} !== ${String(
+          value2
+        )}`
+      )
+    }
+  }
+}
