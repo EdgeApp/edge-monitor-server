@@ -2,6 +2,10 @@ import { asObject, asString, asUnknown, Cleaner } from 'cleaners'
 import { asCouchDoc, CouchDoc, DatabaseSetup } from 'edge-server-tools'
 import { ServerScope } from 'nano'
 
+import infoServer from '../../fixtures/infoServer.json'
+import loginServer from '../../fixtures/loginServer.json'
+import ratesServer from '../../fixtures/ratesServer.json'
+
 export interface TestFixture {
   fixtureId?: string
   pluginId: string
@@ -24,7 +28,12 @@ export const asDbTestFixture: Cleaner<CouchDoc<TestFixture>> = asCouchDoc(
 )
 
 export const dbTestFixturesSetup: DatabaseSetup = {
-  name: 'monitor_fixtures'
+  name: 'monitor_fixtures',
+  templates: {
+    ratesServer,
+    infoServer,
+    loginServer
+  }
 }
 
 /**

@@ -1,0 +1,53 @@
+{
+  "_id": "ratesServer",
+  "pluginId": "fetchPlugin",
+  "data": {
+    "clusters": [
+      {
+        "servers": [
+          "https://rates1.edge.app",
+          "https://rates2.edge.app",
+          "https://rates2-us1.edge.app",
+          "https://rates2-eu1.edge.app"
+        ],
+        "apiCalls": [
+          {
+            "method": "POST",
+            "path": "/v2/exchangeRates",
+            "expectThrow": false,
+            "headers": {},
+            "body": {
+              "data": [
+                {
+                  "currency_pair": "BTC_iso:USD",
+                  "date": "2020-01-01T00:00:00.000Z"
+                }
+              ]
+            },
+            "result": {
+              "data": [
+                {
+                  "currency_pair": "BTC_iso:USD",
+                  "date": "2020-01-01T00:00:00.000Z",
+                  "exchangeRate": "7233.81490917895735037746"
+                }
+              ]
+            }
+          },
+          {
+            "method": "GET",
+            "path": "/v1/exchangeRate?currency_pair=BTC_USD&date=2020-01-01T00:00:00.000Z",
+            "expectThrow": false,
+            "headers": {},
+            "body": null,
+            "result": {
+              "currency_pair": "BTC_USD",
+              "date": "2020-01-01T00:00:00.000Z",
+              "exchangeRate": "7233.81490917895735037746"
+            }
+          }
+        ]
+      }
+    ]
+  }
+}

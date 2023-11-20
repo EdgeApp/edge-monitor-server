@@ -1,0 +1,34 @@
+{
+  "_id": "infoServer",
+  "pluginId": "fetchPlugin",
+  "data": {
+    "clusters": [
+      {
+        "servers": [
+          "https://info1.edge.app",
+          "https://info2.edge.app",
+          "https://info-us1.edge.app",
+          "https://info-eu1.edge.app"
+        ],
+        "apiCalls": [
+          {
+            "method": "GET",
+            "path": "/v1/exchangeInfo/edge",
+            "expectThrow": false,
+            "headers": {},
+            "body": null,
+            "result": {
+              "buy": {
+                "disablePlugins": {
+                  "creditcard": {
+                    "myProviderId": true
+                  }
+                }
+              }
+            }
+          }
+        ]
+      }
+    ]
+  }
+}
