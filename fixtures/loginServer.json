@@ -1,6 +1,7 @@
 {
   "_id": "loginServer",
   "pluginId": "fetchPlugin",
+  "runFrequencyMins": 15,
   "data": {
     "clusters": [
       {

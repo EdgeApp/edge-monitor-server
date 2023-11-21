@@ -1,6 +1,7 @@
 {
   "_id": "infoServer",
   "pluginId": "fetchPlugin",
+  "runFrequencyMins": 15,
   "data": {
     "clusters": [
       {
