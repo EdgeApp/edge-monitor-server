@@ -1,0 +1,16 @@
+{
+  "apps": [
+    {
+      "name": "monitorServer",
+      "script": "./lib/indexEngine.js",
+      "out_file": "/var/log/pm2/monitorEngine.log"
+    }
+  ],
+  "appsUnused": [
+    {
+      "name": "monitorApi",
+      "script": "./lib/indexApi.js",
+      "out_file": "/var/log/pm2/monitorApi.log"
+    }
+  ]
+}

@@ -1,0 +1,108 @@
+{
+  "_id": "loginServer",
+  "pluginId": "fetchPlugin",
+  "runFrequencyMins": 15,
+  "data": {
+    "clusters": [
+      {
+        "servers": [
+          "https://login.edge.app",
+          "https://login1.edge.app",
+          "https://login2.edge.app"
+        ],
+        "apiCalls": [
+          {
+            "testName": "Password Login",
+            "method": "POST",
+            "path": "/api/v2/login",
+            "expectThrow": false,
+            "headers": {
+              "Authorization": "Token {{EDGE_API_KEY}}"
+            },
+            "body": {
+              "userId": "xxx",
+              "passwordAuth": "xxx"
+            },
+            "result": {
+              "results": {
+                "appId": "",
+                "created": "xxx",
+                "loginId": "xxx",
+                "syncToken": "xxx",
+                "passwordAuthBox": {
+                  "encryptionType": 0,
+                  "data_base64": "xxx",
+                  "iv_hex": "xxx"
+                }
+              }
+            }
+          },
+          {
+            "testName": "PIN2 Login",
+            "method": "POST",
+            "path": "/api/v2/login",
+            "expectThrow": false,
+            "headers": {
+              "Authorization": "Token {{EDGE_API_KEY}}"
+            },
+            "body": {
+              "pin2Id": "xxx",
+              "pin2Auth": "xxx"
+            },
+            "result": {
+              "results": {
+                "appId": "",
+                "created": "xxx",
+                "loginId": "xxx",
+                "syncToken": "xxx",
+                "passwordAuthBox": {
+                  "encryptionType": 0,
+                  "data_base64": "xxx",
+                  "iv_hex": "xxx"
+                }
+              }
+            }
+          },
+          {
+            "testName": "User ID Exists",
+            "method": "POST",
+            "path": "/api/v2/login",
+            "expectThrow": false,
+            "headers": {
+              "Authorization": "Token {{EDGE_API_KEY}}"
+            },
+            "body": {
+              "userId": "xxx"
+            },
+            "result": {
+              "results": {
+                "loginId": "xxx",
+                "passwordAuthSnrp": {
+                  "salt_hex": "xxx",
+                  "n": 16384,
+                  "r": 1,
+                  "p": 1
+                }
+              },
+              "status_code": 0,
+              "message": "Success"
+            }
+          },
+          {
+            "testName": "User ID Available",
+            "method": "POST",
+            "path": "/api/v2/login",
+            "expectThrow": true,
+            "headers": {
+              "Authorization": "Token {{EDGE_API_KEY}}"
+            },
+            "body": {
+              "userId": "xxx"
+            },
+            "result": {}
+          }
+        ]
+      }
+    ]
+  }
+}
