@@ -1,4 +1,11 @@
-import { asObject, asString, asUnknown, Cleaner } from 'cleaners'
+import {
+  asMaybe,
+  asNumber,
+  asObject,
+  asString,
+  asUnknown,
+  Cleaner
+} from 'cleaners'
 import { asCouchDoc, CouchDoc, DatabaseSetup } from 'edge-server-tools'
 import { ServerScope } from 'nano'
 
@@ -9,6 +16,7 @@ import ratesServer from '../../fixtures/ratesServer.json'
 export interface TestFixture {
   fixtureId?: string
   pluginId: string
+  runFrequencyMins: number
   data: unknown
 }
 
@@ -23,7 +31,8 @@ export const asDbTestFixture: Cleaner<CouchDoc<TestFixture>> = asCouchDoc(
     data: asObject({
       clusters: asUnknown
     }),
-    pluginId: asString
+    pluginId: asString,
+    runFrequencyMins: asMaybe(asNumber, 30)
   })
 )
 
@@ -58,6 +67,7 @@ function unpackTestFixture(doc: CouchDoc<TestFixture>): TestFixtureFull {
   return {
     fixtureId: doc.id,
     pluginId: doc.doc.pluginId,
+    runFrequencyMins: doc.doc.runFrequencyMins,
     data: doc.doc.data
   }
 }
