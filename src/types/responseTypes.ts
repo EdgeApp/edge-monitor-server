@@ -16,54 +16,6 @@ export const statusCodes: { [key: string]: StatusCode } = {
     code: 1,
     httpStatus: 503,
     message: 'Error'
-  },
-  accountExists: {
-    code: 2,
-    httpStatus: 401,
-    message: 'Account already exists'
-  },
-  noAccount: {
-    code: 3,
-    httpStatus: 404,
-    message: 'No account'
-  },
-  invalidPassword: {
-    code: 4,
-    httpStatus: 401,
-    message: 'Invalid Password'
-  },
-  conflict: {
-    code: 10,
-    httpStatus: 409,
-    message: 'Conflicting change'
-  },
-  rateLimit: {
-    code: 11,
-    httpStatus: 429,
-    message: 'Too many failed login attempts'
-  },
-  obsolete: {
-    code: 1000,
-    httpStatus: 410,
-    message: 'Obsolete API'
-  },
-
-  // Variants of the "error" status code:
-  invalidRequest: {
-    code: 1,
-    httpStatus: 401,
-    message: 'Invalid request'
-  },
-  notFound: {
-    code: 1,
-    httpStatus: 404,
-    message: 'Not found'
-  },
-
-  serverOverload: {
-    code: 11,
-    httpStatus: 503,
-    message: 'Server overloaded'
   }
 }
 
