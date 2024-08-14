@@ -1,5 +1,4 @@
 import chai from 'chai'
-import chaiAsPromised from 'chai-as-promised'
 import {
   asArray,
   asBoolean,
@@ -17,7 +16,6 @@ import { MonitorPlugin, PluginProcessor } from '../../types'
 import { describe, it } from '../util/testing'
 import { cleanFetch, objectsDeepMatch } from '../util/utils'
 
-chai.use(chaiAsPromised)
 const { assert } = chai
 
 const pluginId = 'fetchPlugin'
@@ -75,7 +73,13 @@ const pluginProcessor: PluginProcessor = async (
           await it(`${name}`, async () => {
             const p = fetchHelper(method, headers, server, path, body)
             if (expectThrow) {
-              await assert.isRejected(p)
+              let didThrow = false
+              try {
+                await p
+              } catch (e) {
+                didThrow = true
+              }
+              assert.isTrue(didThrow)
             } else {
               const response = await p
               objectsDeepMatch(response, result)
