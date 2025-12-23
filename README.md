@@ -46,3 +46,27 @@ pm2 restart all
 ```
 
 Each deployment should come with its own version bump, changelog update, and git tag.
+
+## Usage
+
+The monitor server runs a continuous loop that tests your configured services at regular intervals. It works by:
+
+1. **Loading test fixtures** from CouchDB that define what to monitor
+2. **Executing plugins** that perform the actual health checks (HTTP requests, response validation)
+3. **Alerting via Slack** when tests fail
+
+### Architecture
+
+- **Engine** (`yarn start:engine`) - The monitoring daemon that runs tests continuously
+- **API** (`yarn start:api`) - Optional HTTP server for health checks and future management endpoints
+
+### Adding Monitors
+
+To monitor a new service, create a **fixture** that specifies:
+- The servers/endpoints to test
+- The API calls to make
+- The expected responses
+
+Fixtures are JSON documents stored in CouchDB's `monitor_fixtures` database. The `fixtures/` directory contains template files that seed the database on startup—these serve as version-controlled defaults that get synced to CouchDB when the server initializes. You can also modify fixtures directly in CouchDB without redeploying.
+
+For detailed instructions on setting up monitoring, see the [Monitoring Setup Guide](docs/monitoring-setup.md).
