@@ -13,7 +13,7 @@ import {
 import { RequestInit } from 'node-fetch'
 
 import { MonitorPlugin, PluginProcessor } from '../../types'
-import { describe, it } from '../util/testing'
+import { describe } from '../util/testing'
 import { cleanFetch, objectsDeepMatch } from '../util/utils'
 
 const { assert } = chai
@@ -55,7 +55,7 @@ const pluginProcessor: PluginProcessor = async (
   for (const cluster of clusters) {
     const { servers, apiCalls } = cluster
     for (const server of servers) {
-      await describe(`${fixtureId}:${pluginId}:${server}`, async () => {
+      await describe(`${fixtureId}:${pluginId}:${server}`, async it => {
         for (const apiCall of apiCalls) {
           const {
             body,
