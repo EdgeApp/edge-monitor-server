@@ -1,3 +1,4 @@
 import { fetchPlugin } from './plugins/fetchPlugin'
+import { websocketPlugin } from './plugins/websocketPlugin'
 
-export const plugins = [fetchPlugin]
+export const plugins = [fetchPlugin, websocketPlugin]

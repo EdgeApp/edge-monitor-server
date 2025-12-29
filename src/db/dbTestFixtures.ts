@@ -9,6 +9,7 @@ import {
 import { asCouchDoc, CouchDoc, DatabaseSetup } from 'edge-server-tools'
 import { ServerScope } from 'nano'
 
+import changeServer from '../../fixtures/changeServer.json'
 import infoServer from '../../fixtures/infoServer.json'
 import loginServer from '../../fixtures/loginServer.json'
 import ratesServer from '../../fixtures/ratesServer.json'
@@ -39,6 +40,7 @@ export const asDbTestFixture: Cleaner<CouchDoc<TestFixture>> = asCouchDoc(
 export const dbTestFixturesSetup: DatabaseSetup = {
   name: 'monitor_fixtures',
   templates: {
+    changeServer,
     ratesServer,
     infoServer,
     loginServer

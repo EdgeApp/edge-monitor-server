@@ -59,7 +59,7 @@ Create a JSON fixture file in the `fixtures/` directory:
 | Field | Description |
 |-------|-------------|
 | `_id` | CouchDB document ID for the fixture |
-| `pluginId` | The plugin to use (currently only `fetchPlugin`) |
+| `pluginId` | The plugin to use |
 | `runFrequencyMins` | How often to run tests (in minutes) |
 | `data.clusters` | Array of server clusters to monitor |
 | `clusters[].servers` | Array of server URLs to test |
@@ -153,6 +153,7 @@ The server comes with pre-configured fixtures for Edge infrastructure:
 
 | Fixture | Description | Frequency |
 |---------|-------------|-----------|
+| `changeServer` | Tests change-server WebSocket connections | 15 min |
 | `infoServer` | Tests Edge info servers for exchange info | 15 min |
 | `ratesServer` | Tests exchange rate API endpoints | 15 min |
 | `loginServer` | Tests login server infrastructure | 15 min |

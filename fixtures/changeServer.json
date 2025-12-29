@@ -1,0 +1,34 @@
+{
+  "_id": "changeServer",
+  "pluginId": "websocketPlugin",
+  "runFrequencyMins": 15,
+  "data": {
+    "clusters": [
+      {
+        "servers": [
+          "wss://change1.edge.app",
+          "wss://change2.edge.app",
+          "wss://change-eusa1.edge.app",
+          "wss://change-wusa1.edge.app"
+        ],
+        "calls": [
+          {
+            "testName": "Connection health check",
+            "path": "/",
+            "connectTimeout": 10000
+          },
+          {
+            "testName": "Empty subscribe request",
+            "path": "/",
+            "connectTimeout": 10000,
+            "sendMessage": "{\"jsonrpc\":\"2.0\",\"method\":\"subscribe\",\"params\":[],\"id\":0}",
+            "expectResponse": true,
+            "responseTimeout": 5000,
+            "responseContains": "\"result\":[]"
+          }
+        ]
+      }
+    ]
+  }
+}
+
