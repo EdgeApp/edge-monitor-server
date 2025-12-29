@@ -8,15 +8,41 @@ interface TestResult {
   error?: string
 }
 
-let results: TestResult[] = []
+export type ItFunction = (
+  description: string,
+  func: () => Promise<void>
+) => Promise<void>
 
 export const describe = async (
   description: string,
-  func: () => Promise<void>
+  func: (it: ItFunction) => Promise<void>
 ): Promise<void> => {
   datelog(`*** ${description} START ***`)
-  results = []
-  await func()
+
+  // Each describe call gets its own results array (no shared state)
+  const results: TestResult[] = []
+
+  const it: ItFunction = async (testDescription, testFunc) => {
+    try {
+      await testFunc()
+      results.push({
+        description: testDescription,
+        pass: true
+      })
+      logPassed(testDescription)
+    } catch (e) {
+      const error = String(e)
+      results.push({
+        description: testDescription,
+        pass: false,
+        error
+      })
+      logFailed(`${testDescription} ${error}`)
+    }
+  }
+
+  await func(it)
+
   datelog(`*** ${description} END *****\n`)
   const failures = results.filter(r => !r.pass)
   if (failures.length > 0) {
@@ -26,28 +52,6 @@ export const describe = async (
     const message = `FAILED Test group ${description}\n` + messages.join('\n')
     console.log(`Messaging Errors to Slack\n${message}`)
     slackStatus(message)
-  }
-}
-
-export const it = async (
-  description: string,
-  func: () => Promise<void>
-): Promise<void> => {
-  try {
-    await func()
-    results.push({
-      description,
-      pass: true
-    })
-    logPassed(description)
-  } catch (e) {
-    const error = String(e)
-    results.push({
-      description,
-      pass: false,
-      error
-    })
-    logFailed(`${description} ${error}`)
   }
 }
 
